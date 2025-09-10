@@ -12,18 +12,16 @@ package com.backforreact.backforreact.domain.mappers;
 
 
 import com.backforreact.backforreact.domain.entities.Perfil;
-import com.backforreact.backforreact.domain.entities.Usuario;
 import com.backforreact.backforreact.web.dtos.perfil.PerfilCreateDTO;
 import com.backforreact.backforreact.web.dtos.perfil.PerfilEditDTO;
 import com.backforreact.backforreact.web.dtos.perfil.PerfilResponseDTO;
-import com.backforreact.backforreact.web.dtos.usuario.UsuarioCreateDTO;
-import com.backforreact.backforreact.web.dtos.usuario.UsuarioEditDTO;
-import com.backforreact.backforreact.web.dtos.usuario.UsuarioResponseDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface PerfilMapper {
     Perfil toEntity(PerfilCreateDTO createDTO);
+
     Perfil toEntity(PerfilEditDTO editDTO);
+
     PerfilResponseDTO toResponse(Perfil entity);
 }

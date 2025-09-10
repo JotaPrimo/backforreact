@@ -13,34 +13,35 @@ import java.util.List;
 @Service
 public class PerfilService {
 
-    private final PerfilRepository repository;
-    private final PerfilMapper mapper;
-
-    public PerfilService(PerfilRepository repostory, PerfilMapper mapper) {
-        this.repository = repostory;
-        this.mapper = mapper;
-    }
-
-    public List<PerfilResponseDTO> listar() {
-        return repository.findAll().stream().map(mapper::toResponse).toList();
-    }
-
-    public PerfilResponseDTO buscarOuFalhar(Long id) {
-        Perfil perfil = repository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-        return mapper.toResponse(perfil);
-    }
-
-    public PerfilResponseDTO salvar(PerfilCreateDTO perfilCreateDTO) {
-        Perfil perfil = mapper.toEntity(perfilCreateDTO);
-        return mapper.toResponse(repository.save(perfil));
-    }
-
-    public void deletar(Long id) {
-        repository.deleteById(id);
-    }
-
-    public PerfilResponseDTO atualizar(Long id, PerfilEditDTO perfilEditDTO) {
-        Perfil usuarioAtualizado = repository.saveAndFlush(mapper.toEntity(perfilEditDTO));
-        return mapper.toResponse(usuarioAtualizado);
-    }
+//    private final PerfilRepository repository;
+//    private final PerfilMapper perfilMapper;
+//
+//    public PerfilService(PerfilRepository repository, PerfilMapper mapper) {
+//        this.repository = repository;
+//        this.perfilMapper = mapper;
+//    }
+//
+//
+//    public List<PerfilResponseDTO> listar() {
+//        return repository.findAll().stream().map(perfilMapper::toResponse).toList();
+//    }
+//
+//    public PerfilResponseDTO buscarOuFalhar(Long id) {
+//        Perfil perfil = repository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+//        return perfilMapper.toResponse(perfil);
+//    }
+//
+//    public PerfilResponseDTO salvar(PerfilCreateDTO perfilCreateDTO) {
+//        Perfil perfil = perfilMapper.toEntity(perfilCreateDTO);
+//        return perfilMapper.toResponse(repository.save(perfil));
+//    }
+//
+//    public void deletar(Long id) {
+//        repository.deleteById(id);
+//    }
+//
+//    public PerfilResponseDTO atualizar(Long id, PerfilEditDTO perfilEditDTO) {
+//        Perfil usuarioAtualizado = repository.saveAndFlush(perfilMapper.toEntity(perfilEditDTO));
+//        return perfilMapper.toResponse(usuarioAtualizado);
+//    }
 }
