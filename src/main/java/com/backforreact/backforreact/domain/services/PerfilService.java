@@ -1,0 +1,46 @@
+package com.backforreact.backforreact.domain.services;
+
+import com.backforreact.backforreact.domain.entities.Perfil;
+import com.backforreact.backforreact.domain.mappers.PerfilMapper;
+import com.backforreact.backforreact.infra.PerfilRepository;
+import com.backforreact.backforreact.web.dtos.perfil.PerfilCreateDTO;
+import com.backforreact.backforreact.web.dtos.perfil.PerfilEditDTO;
+import com.backforreact.backforreact.web.dtos.perfil.PerfilResponseDTO;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class PerfilService {
+
+    private final PerfilRepository repository;
+    private final PerfilMapper mapper;
+
+    public PerfilService(PerfilRepository repostory, PerfilMapper mapper) {
+        this.repository = repostory;
+        this.mapper = mapper;
+    }
+
+    public List<PerfilResponseDTO> listar() {
+        return repository.findAll().stream().map(mapper::toResponse).toList();
+    }
+
+    public PerfilResponseDTO buscarOuFalhar(Long id) {
+        Perfil perfil = repository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        return mapper.toResponse(perfil);
+    }
+
+    public PerfilResponseDTO salvar(PerfilCreateDTO perfilCreateDTO) {
+        Perfil perfil = mapper.toEntity(perfilCreateDTO);
+        return mapper.toResponse(repository.save(perfil));
+    }
+
+    public void deletar(Long id) {
+        repository.deleteById(id);
+    }
+
+    public PerfilResponseDTO atualizar(Long id, PerfilEditDTO perfilEditDTO) {
+        Perfil usuarioAtualizado = repository.saveAndFlush(mapper.toEntity(perfilEditDTO));
+        return mapper.toResponse(usuarioAtualizado);
+    }
+}

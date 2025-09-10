@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class UsuarioController {
+public class PerfilController {
     private final UsuarioService service;
 
-    public UsuarioController(UsuarioService service) {
+    public PerfilController(UsuarioService service) {
         this.service = service;
     }
 
